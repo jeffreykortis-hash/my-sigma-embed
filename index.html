@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SE Bootcamp – Level Up Challenge</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --sigma-orange: #FF6B35;
+    --sigma-dark: #1A1A2E;
+    --sigma-mid: #2D2D44;
+    --sigma-blue: #4A90D9;
+    --sigma-teal: #00C9A7;
+    --sigma-yellow: #FFD166;
+    --sigma-light: #F7F7FB;
+    --sigma-muted: #8888AA;
+    --text: #1A1A2E;
+  }
+
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page { page-break-after: avoid; }
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--sigma-light);
+    color: var(--text);
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .page {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: white;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--sigma-dark);
+    padding: 28px 40px 22px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .header-left .eyebrow {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sigma-orange);
+    margin-bottom: 6px;
+  }
+
+  .header-left h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 30px;
+    color: white;
+    line-height: 1.15;
+  }
+
+  .header-left h1 em {
+    color: var(--sigma-orange);
+    font-style: italic;
+  }
+
+  .header-right {
+    text-align: right;
+  }
+
+  .header-right .meta {
+    font-size: 11px;
+    color: var(--sigma-muted);
+    line-height: 1.7;
+  }
+
+  .header-right .meta strong {
+    color: white;
+    font-weight: 500;
+  }
+
+  /* SCENARIO BAND */
+  .scenario-band {
+    background: var(--sigma-orange);
+    padding: 16px 40px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .scenario-band .tag {
+    background: rgba(0,0,0,0.18);
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 3px;
+    white-space: nowrap;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .scenario-band blockquote {
+    font-family: 'DM Serif Display', serif;
+    font-size: 14.5px;
+    color: white;
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  .scenario-band blockquote cite {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-style: normal;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: rgba(255,255,255,0.75);
+    margin-top: 5px;
+    letter-spacing: 0.04em;
+  }
+
+  /* BODY GRID */
+  .body-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+  }
+
+  /* SECTION SHARED */
+  .section {
+    padding: 22px 28px;
+    border-bottom: 1px solid #EBEBF3;
+  }
+
+  .section:nth-child(odd) {
+    border-right: 1px solid #EBEBF3;
+  }
+
+  .section-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sigma-muted);
+    margin-bottom: 10px;
+  }
+
+  .section h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 16px;
+    color: var(--sigma-dark);
+    margin-bottom: 8px;
+    line-height: 1.25;
+  }
+
+  .section p {
+    font-size: 12px;
+    color: #444460;
+    line-height: 1.6;
+  }
+
+  /* FULL WIDTH SECTION */
+  .section.full {
+    grid-column: 1 / -1;
+    border-right: none;
+  }
+
+  /* TIMING */
+  .timing-row {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 0;
+    border: 1px solid #EBEBF3;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 10px;
+  }
+
+  .timing-cell {
+    padding: 8px 12px;
+    border-bottom: 1px solid #EBEBF3;
+    display: contents;
+  }
+
+  .timing-cell:last-child > * { border-bottom: none; }
+
+  .t-time {
+    background: var(--sigma-dark);
+    color: var(--sigma-orange);
+    font-size: 10.5px;
+    font-weight: 600;
+    padding: 9px 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    letter-spacing: 0.04em;
+    display: flex;
+    align-items: center;
+  }
+
+  .t-desc {
+    font-size: 11.5px;
+    color: #333355;
+    padding: 9px 14px;
+    border-bottom: 1px solid #EBEBF3;
+    display: flex;
+    align-items: center;
+    background: white;
+  }
+
+  .t-time:last-of-type, .t-desc:last-of-type { border-bottom: none; }
+
+  /* PILLARS */
+  .pillars-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+
+  .pillar-card {
+    border-radius: 8px;
+    padding: 14px 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pillar-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px;
+    height: 100%;
+  }
+
+  .pillar-card.p1 { background: #FFF4EF; }
+  .pillar-card.p1::before { background: var(--sigma-orange); }
+
+  .pillar-card.p2 { background: #EFF6FF; }
+  .pillar-card.p2::before { background: var(--sigma-blue); }
+
+  .pillar-card.p3 { background: #EFFAF7; }
+  .pillar-card.p3::before { background: var(--sigma-teal); }
+
+  .pillar-card.p4 { background: #FFFBEF; }
+  .pillar-card.p4::before { background: var(--sigma-yellow); }
+
+  .pillar-card .p-num {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--sigma-muted);
+    margin-bottom: 4px;
+  }
+
+  .pillar-card h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 14px;
+    color: var(--sigma-dark);
+    margin-bottom: 5px;
+  }
+
+  .pillar-card p {
+    font-size: 11px;
+    color: #555570;
+    line-height: 1.55;
+  }
+
+  .pillar-card .prompt {
+    font-size: 10.5px;
+    font-style: italic;
+    color: var(--sigma-muted);
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px dashed #DDDDEE;
+  }
+
+  /* WORKFLOW */
+  .workflow-flow {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin-top: 12px;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #EBEBF3;
+  }
+
+  .wf-step {
+    flex: 1;
+    padding: 12px 14px;
+    background: white;
+    border-right: 1px solid #EBEBF3;
+    position: relative;
+  }
+
+  .wf-step:last-child { border-right: none; }
+
+  .wf-arrow {
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    background: var(--sigma-orange);
+    clip-path: polygon(0 20%, 70% 20%, 70% 0%, 100% 50%, 70% 100%, 70% 80%, 0 80%);
+    z-index: 2;
+  }
+
+  .wf-step:last-child .wf-arrow { display: none; }
+
+  .wf-step .wf-num {
+    width: 20px;
+    height: 20px;
+    background: var(--sigma-dark);
+    color: var(--sigma-orange);
+    border-radius: 50%;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+  }
+
+  .wf-step h4 {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--sigma-dark);
+    margin-bottom: 3px;
+  }
+
+  .wf-step p {
+    font-size: 10.5px;
+    color: #666680;
+    line-height: 1.45;
+  }
+
+  /* QUESTIONS */
+  .questions-list {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .q-item {
+    background: var(--sigma-light);
+    border-left: 3px solid var(--sigma-orange);
+    padding: 8px 12px;
+    border-radius: 0 6px 6px 0;
+    font-size: 11.5px;
+    color: #333355;
+    font-style: italic;
+  }
+
+  /* JUDGING */
+  .judging-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .judge-card {
+    background: var(--sigma-dark);
+    border-radius: 8px;
+    padding: 12px;
+    text-align: center;
+  }
+
+  .judge-card .j-icon { font-size: 20px; margin-bottom: 6px; }
+
+  .judge-card h4 {
+    font-size: 11px;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 4px;
+  }
+
+  .judge-card p {
+    font-size: 10px;
+    color: var(--sigma-muted);
+    line-height: 1.4;
+  }
+
+  /* PRESENTATION */
+  .pres-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .pres-step {
+    border: 1px solid #EBEBF3;
+    border-radius: 8px;
+    padding: 11px 12px;
+    background: white;
+  }
+
+  .pres-step .ps-time {
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--sigma-orange);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .pres-step h4 {
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--sigma-dark);
+    margin-bottom: 4px;
+  }
+
+  .pres-step p {
+    font-size: 10.5px;
+    color: #666680;
+    line-height: 1.4;
+  }
+
+  /* FOOTER */
+  .footer {
+    background: var(--sigma-dark);
+    padding: 14px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer p {
+    font-size: 10px;
+    color: var(--sigma-muted);
+  }
+
+  .footer strong { color: var(--sigma-orange); }
+
+  /* CALLOUT BOX */
+  .callout {
+    background: linear-gradient(135deg, #1A1A2E, #2D2D44);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-top: 10px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .callout .callout-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .callout p {
+    font-size: 11.5px;
+    color: #CCCCDD;
+    line-height: 1.55;
+  }
+
+  .callout p strong {
+    color: var(--sigma-orange);
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-left">
+      <div class="eyebrow">SE Bootcamp · Friday Challenge</div>
+      <h1>Level Up the<br><em>Status Quo</em></h1>
+    </div>
+    <div class="header-right">
+      <div class="meta">
+        <strong>TechFlow Solutions</strong><br>
+        Customer Scenario · Brainstorm Challenge<br>
+        60 min · 3 Teams · 12 Attendees<br>
+        <strong>Friday 2/27/26</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCENARIO BAND -->
+  <div class="scenario-band">
+    <div class="tag">Customer Voice</div>
+    <blockquote>
+      "We love the data. We just feel like we're always looking backward. We want to act on it, not just read it."
+      <cite>— VP of Sales, TechFlow Solutions · 300-person SaaS company currently on Tableau</cite>
+    </blockquote>
+  </div>
+
+  <!-- BODY GRID -->
+  <div class="body-grid">
+
+    <!-- YOUR TASK -->
+    <div class="section">
+      <div class="section-label">Your Task</div>
+      <h2>Don't rebuild it. Evolve it.</h2>
+      <p>You've been handed TechFlow's existing Tableau dashboard. It works. It's fine. It's also the ceiling of what their current tool can do.</p>
+      <p style="margin-top:7px;">Your job is to look at this dashboard and articulate — clearly and specifically — how you'd take it to the next level using Sigma. <strong>No building required.</strong> Think, structure, and sell it.</p>
+      <div class="callout">
+        <div class="callout-icon">🎯</div>
+        <p>For every enhancement you propose, you must answer three questions: <strong>What's broken in the current state? What does Sigma specifically do? What does the customer feel or decide differently because of it?</strong> If you can't answer all three, it's not ready to present.</p>
+      </div>
+    </div>
+
+    <!-- TIMING -->
+    <div class="section">
+      <div class="section-label">Session Timing</div>
+      <h2>60 Minutes, Every Second Counts</h2>
+      <div class="timing-row">
+        <div class="t-time">0:00–0:05</div>
+        <div class="t-desc">Scenario intro, dashboard reveal, team formation</div>
+        <div class="t-time">0:05–0:35</div>
+        <div class="t-desc">Brainstorm — structure your pitch across all 4 pillars</div>
+        <div class="t-time">0:35–0:37</div>
+        <div class="t-desc">Hard stop — finalize talking points, pick your anchor moment</div>
+        <div class="t-time">0:37–0:57</div>
+        <div class="t-desc">Presentations — 5 min per team, back to back</div>
+        <div class="t-time">0:57–1:00</div>
+        <div class="t-desc">Scoring, winner announced, prize awarded 🏆</div>
+      </div>
+    </div>
+
+    <!-- PILLARS FULL WIDTH -->
+    <div class="section full">
+      <div class="section-label">The Four Sigma Pillars — Your Brainstorm Framework</div>
+      <h2>Every enhancement must map to a pillar. No orphan features.</h2>
+      <div class="pillars-grid">
+        <div class="pillar-card p1">
+          <div class="p-num">Pillar 01 · Spreadsheet</div>
+          <h3>Familiarity &amp; Flexibility</h3>
+          <p>The rep leaderboard is read-only today. What if a sales manager could annotate deals, flag priorities, or add coaching notes directly in the data — without leaving Sigma? Show how editability turns a passive report into an active workspace.</p>
+          <div class="prompt">Ask yourself: What does a manager do after they read this table today?</div>
+        </div>
+        <div class="pillar-card p2">
+          <div class="p-num">Pillar 02 · Cloud Scale</div>
+          <h3>Warehouse-Native Power</h3>
+          <p>The charts are snapshots. Propose at least one live, warehouse-computed metric — weighted pipeline, days-in-stage risk, rolling 90-day attainment. The point: this runs on 10M rows the same as 10K, and it's always current.</p>
+          <div class="prompt">Ask yourself: When does the data go stale in their current tool?</div>
+        </div>
+        <div class="pillar-card p3">
+          <div class="p-num">Pillar 03 · AI &amp; Intelligence</div>
+          <h3>From Descriptive to Intelligent</h3>
+          <p>Pick ONE AI capability that transforms this dashboard: a risk-assessment column on deal notes, close probability flags, a natural language query bar, or a live pipeline health narrative that rewrites itself on load.</p>
+          <div class="prompt">Ask yourself: What question does their VP ask every Monday that no chart answers?</div>
+        </div>
+        <div class="pillar-card p4">
+          <div class="p-num">Pillar 04 · Workflow &amp; Action</div>
+          <h3>The Dashboard Does Something</h3>
+          <p>This is the differentiator. Propose one trigger: a high-risk deal fires a Slack alert to the manager; a discount approval happens inside Sigma and writes back to the warehouse; a weekly summary emails itself to the board in the format they already use.</p>
+          <div class="prompt">Ask yourself: What happens 10 minutes after they see the insight today?</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WORKFLOW DETAIL FULL WIDTH -->
+    <div class="section full">
+      <div class="section-label">Workflow Deep Dive — What You Need to Know</div>
+      <h2>Workflow is the pillar most teams underestimate. Don't.</h2>
+      <p style="max-width:680px; margin-bottom:12px;">Sigma's workflow capability means the dashboard is no longer a destination — it's a trigger. Here's how to think about it and what to communicate to the customer:</p>
+      <div class="workflow-flow">
+        <div class="wf-step">
+          <div class="wf-arrow"></div>
+          <div class="wf-num">1</div>
+          <h4>Condition is Met</h4>
+          <p>An AI flag fires, a threshold is crossed, a manager edits a cell, or a scheduled time arrives.</p>
+        </div>
+        <div class="wf-step">
+          <div class="wf-arrow"></div>
+          <div class="wf-num">2</div>
+          <h4>Sigma Detects It</h4>
+          <p>Sigma monitors the underlying data in the warehouse — no polling, no middleware required.</p>
+        </div>
+        <div class="wf-step">
+          <div class="wf-arrow"></div>
+          <div class="wf-num">3</div>
+          <h4>Action Fires</h4>
+          <p>Slack alert, email summary, write-back to the warehouse, PDF delivery — the system moves, not the human.</p>
+        </div>
+        <div class="wf-step">
+          <div class="wf-arrow"></div>
+          <div class="wf-num">4</div>
+          <h4>Person Acts</h4>
+          <p>The rep, manager, or exec receives exactly what they need, in context, at the right moment.</p>
+        </div>
+        <div class="wf-step">
+          <div class="wf-num">5</div>
+          <h4>Loop Closes</h4>
+          <p>That action can trigger another write-back or update — creating a living, self-maintaining process.</p>
+        </div>
+      </div>
+      <div class="callout" style="margin-top:12px;">
+        <div class="callout-icon">💡</div>
+        <p><strong>Key customer message:</strong> Their current tool shows them what happened. Sigma tells the right person, at the right time, in the right format — and then records what they did about it. That's the gap between a BI tool and a business operating system. That's what the VP of Sales is describing when she says "we want to act on it."</p>
+      </div>
+    </div>
+
+    <!-- PRESENTATION FRAMEWORK -->
+    <div class="section full">
+      <div class="section-label">Presentation Framework — 5 Minutes Per Team</div>
+      <h2>Sell it like an SE, not a developer.</h2>
+      <div class="pres-steps">
+        <div class="pres-step">
+          <div class="ps-time">0:00 — 0:45</div>
+          <h4>Current State Diagnosis</h4>
+          <p>What is fundamentally limiting about what TechFlow has today? Name it clearly. Don't just say "it's static." Tell us what that costs them.</p>
+        </div>
+        <div class="pres-step">
+          <div class="ps-time">0:45 — 3:15</div>
+          <h4>The Sigma Story</h4>
+          <p>Walk each pillar: what you'd add, why it matters to this specific customer, and what decision or behavior it changes. One pillar per person is a clean way to divide it.</p>
+        </div>
+        <div class="pres-step">
+          <div class="ps-time">3:15 — 4:15</div>
+          <h4>The Pivot Moment</h4>
+          <p>What is the single capability that makes the VP stop and say "we need this"? Make the case for why that's your anchor. Every team will have a different answer — and that's the point.</p>
+        </div>
+        <div class="pres-step">
+          <div class="ps-time">4:15 — 5:00</div>
+          <h4>The Close</h4>
+          <p>What does TechFlow look like 90 days after going live on Sigma? Paint a picture specific enough that the VP can see herself in it.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- JUDGING -->
+    <div class="section full">
+      <div class="section-label">Judging Criteria</div>
+      <h2>Four lenses. All weighted equally.</h2>
+      <div class="judging-grid">
+        <div class="judge-card">
+          <div class="j-icon">🎯</div>
+          <h4>Specificity</h4>
+          <p>Vague features vs. concrete, customer-tied enhancements. "AI summary" is not enough. What does it summarize, for who, and what do they do with it?</p>
+        </div>
+        <div class="judge-card">
+          <div class="j-icon">🏛️</div>
+          <h4>Pillar Coverage</h4>
+          <p>Did all four pillars show up meaningfully? Checking a box is not the same as making a case. Did each pillar earn its place?</p>
+        </div>
+        <div class="judge-card">
+          <div class="j-icon">💼</div>
+          <h4>SE Instincts</h4>
+          <p>Are they selling outcomes or listing features? The best teams will connect every capability to a feeling the VP hasn't felt yet with her current tool.</p>
+        </div>
+        <div class="judge-card">
+          <div class="j-icon">🧵</div>
+          <h4>Cohesion</h4>
+          <p>Does the pitch tell one story, or is it a disconnected list? Great SE demos have a narrative arc. So should this presentation.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- FACILITATOR PROMPTS -->
+    <div class="section full">
+      <div class="section-label">Facilitator Prompts — Drop These &amp; Walk Away</div>
+      <h2>Push them from feature thinking to outcome thinking.</h2>
+      <div class="questions-list">
+        <div class="q-item">"What does their sales manager do on Monday morning with this dashboard right now?"</div>
+        <div class="q-item">"If I'm the VP and I've seen 6 BI tools this month, what makes me remember yours?"</div>
+        <div class="q-item">"You said AI summary — what does it summarize, for who, and what do they do with it?"</div>
+        <div class="q-item">"What happens after they see the insight? Walk me through the next 10 minutes of their day."</div>
+        <div class="q-item">"Where does this dashboard fail them at 11pm on a Tuesday before a board meeting?"</div>
+        <div class="q-item">"If the workflow fires an alert — who gets it, what does it say, and what are they supposed to do?"</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p><strong>Sigma Computing</strong> · SE Bootcamp Week · February 2026</p>
+    <p>See companion file: <strong>TechFlow Current State Dashboard →</strong></p>
+  </div>
+
+</div>
+</body>
+</html>
